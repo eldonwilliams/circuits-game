@@ -33,14 +33,37 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 21300000, guid: 708d00503cb39a8489ebf6dffa60144b, type: 3}
+    - {fileID: 102900000, guid: eecb148911b7ef34cb8290f2e9b9f2b0, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 708d00503cb39a8489ebf6dffa60144b, type: 3}
+  - {fileID: 21300000, guid: c3eb4301dad20ef449a2486f6becf59d, type: 3}
+  - {fileID: 21300000, guid: 0665c342593d4cb43a5bdca9b01c2cde, type: 3}
+  - {fileID: 21300000, guid: c48b9772e7c29f64088c7d59dce1d991, type: 3}
+  - {fileID: 21300000, guid: 12fd65930ff153a4a873973f63c2df79, type: 3}
+  - {fileID: 21300000, guid: e98d4ee627923834ea42cf8bd3d1b7d8, type: 3}
+  - {fileID: 21300000, guid: 68393b08c9e5ac94d8b1c74b5ec90f46, type: 3}
+  - {fileID: 21300000, guid: 3056045959d55414c9c42c9f04138703, type: 3}
+  - {fileID: 21300000, guid: 802dc3ac9acf3a34caad61ec9ec74a02, type: 3}
+  - {fileID: 21300000, guid: cb9e6abc50b97d54f94f345932ded07c, type: 3}
+  - {fileID: 21300000, guid: 079baebd9e517b448b604dbd92c52ce1, type: 3}
+  - {fileID: 21300000, guid: b3dbb17e6b1ae93498a1be76a89a7fa2, type: 3}
   m_PackedSpriteNamesToIndex:
   - cube
+  - SE
+  - NSW
+  - NW
+  - NSE
+  - NS
+  - SW
+  - SWE
+  - WE
+  - NWE
+  - NSWE
+  - NE
   m_RenderDataMap: {}
   m_Tag: Sprites
   m_IsVariant: 0
