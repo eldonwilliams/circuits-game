@@ -14,7 +14,7 @@ public class CameraMover : MonoBehaviour
     private float goalSize = 5.0f;
     private bool _cameraMoving = false;
 
-    private new Camera _camera;
+    private Camera _camera;
 
     private PlayerInput _playerInput;
 
