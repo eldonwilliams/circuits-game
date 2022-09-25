@@ -9,24 +9,24 @@ public class CameraMover : MonoBehaviour
     public RangeFloat sizeLimits;
     public float speed;
 
-    private Vector2 goalPos = new Vector2(0, 0);
+    private Vector2 _goalPos = new Vector2(0, 0);
     [SerializeField]
     private float goalSize = 5.0f;
-    private bool cameraMoving = false;
+    private bool _cameraMoving = false;
 
-    private new Camera camera;
+    private new Camera _camera;
 
-    private PlayerInput playerInput;
+    private PlayerInput _playerInput;
 
     public void OnPointerMove(InputAction.CallbackContext context)
     {
-        if (!cameraMoving) return;
+        if (!_cameraMoving) return;
         
         Vector2 delta = context.ReadValue<Vector2>();
         delta = delta / new Vector2(Screen.width, Screen.width);
         delta = delta * new Vector2(10.0f, 10.0f);
         delta = delta * Mathf.Lerp(0.5f, 1.0f, (goalSize - sizeLimits.min) / (sizeLimits.max - sizeLimits.min));
-        goalPos = goalPos + delta;
+        _goalPos = _goalPos + delta;
     }
 
     public void OnScroll(InputAction.CallbackContext context)
@@ -39,7 +39,7 @@ public class CameraMover : MonoBehaviour
         switch (context.action.name)
         {
             case "CameraMove_Start":
-                cameraMoving = context.ReadValue<float>() != 0.0f;
+                _cameraMoving = context.ReadValue<float>() != 0.0f;
                 break;
             case "CameraMove":
                 OnPointerMove(context);
@@ -55,17 +55,17 @@ public class CameraMover : MonoBehaviour
     {
         foreach (GameObject obj in gameObject.scene.GetRootGameObjects())
             if (obj.GetComponent<Camera>())
-                camera = obj.GetComponent<Camera>();
+                _camera = obj.GetComponent<Camera>();
 
-        playerInput = GetComponent<PlayerInput>();
-        playerInput.onActionTriggered += OnEvent;
+        _playerInput = GetComponent<PlayerInput>();
+        _playerInput.onActionTriggered += OnEvent;
     }
 
     public void Update()
     {
-        camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, goalSize, speed * Time.deltaTime * 1.75f);
+        _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, goalSize, speed * Time.deltaTime * 1.75f);
 
-        Vector3 lerpedPosition = Vector3.Lerp(camera.transform.position, goalPos, speed * Time.deltaTime);
-        camera.transform.position = new Vector3(lerpedPosition.x, lerpedPosition.y, -10);
+        Vector3 lerpedPosition = Vector3.Lerp(_camera.transform.position, _goalPos, speed * Time.deltaTime);
+        _camera.transform.position = new Vector3(lerpedPosition.x, lerpedPosition.y, -10);
     }
 }

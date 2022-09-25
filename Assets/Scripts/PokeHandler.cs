@@ -8,43 +8,42 @@ public class PokeHandler : MonoBehaviour
 {
     public GameObject groundTilePrefab;
 
-    private Tilemap tilemap;
-    private PlayerInput playerInput;
+    private Tilemap _tilemap;
+    private PlayerInput _playerInput;
 
     public void OnEvent(InputAction.CallbackContext context)
     {
         if (context.action.name != "Poke") return;
         if (context.phase != InputActionPhase.Started) return;
 
-        Vector3Int pos = tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Vector3Int pos = _tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         pos = new Vector3Int(pos.x, pos.y);
-        if (!tilemap.HasTile(pos)) {
-            Tile newTile = ScriptableObject.CreateInstance<Tile>();
+        if (!_tilemap.HasTile(pos)) {
+            var newTile = ScriptableObject.CreateInstance<Tile>();
             newTile.gameObject = groundTilePrefab;
-            tilemap.SetTile(pos, newTile);
+            _tilemap.SetTile(pos, newTile);
         }
 
-        GameObject go_tile = tilemap.GetInstantiatedObject(pos);
-        go_tile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        go_tile.transform.LeanScale(new Vector3(1,1,1), 0.35f).setEaseOutBack().setOnComplete(() => {
-            go_tile.transform.localScale = new Vector3(1f, 1f, 1f);
+        GameObject goTile = _tilemap.GetInstantiatedObject(pos);
+        goTile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        goTile.transform.LeanScale(new Vector3(1,1,1), 0.35f).setEaseOutBack().setOnComplete(() => {
+            goTile.transform.localScale = new Vector3(1f, 1f, 1f);
         });
 
-        go_tile.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.0f);
-        LeanTween.alpha(go_tile, 1, 0.35f).setEaseOutBack();
-
-        Vector3 normalPosition = go_tile.transform.position;
-        go_tile.transform.position -= new Vector3(0, 0.75f);
-        go_tile.transform.LeanMove(tilemap.CellToWorld(pos), 0.35f).setEaseOutBack().setOnComplete(() => {
-            go_tile.transform.position = tilemap.CellToWorld(pos);
+        goTile.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        LeanTween.alpha(goTile, 1, 0.35f).setEaseOutBack();
+        
+        goTile.transform.position -= new Vector3(0, 0.75f);
+        goTile.transform.LeanMove(_tilemap.CellToWorld(pos), 0.35f).setEaseOutBack().setOnComplete(() => {
+            goTile.transform.position = _tilemap.CellToWorld(pos);
         });
     }
 
     public void Start()
     {
-        tilemap = GetComponent<Tilemap>();
-        playerInput = GetComponent<PlayerInput>();
+        _tilemap = GetComponent<Tilemap>();
+        _playerInput = GetComponent<PlayerInput>();
 
-        playerInput.onActionTriggered += OnEvent;
+        _playerInput.onActionTriggered += OnEvent;
     }
 }
