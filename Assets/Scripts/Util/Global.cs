@@ -44,4 +44,14 @@ public class Global
 
         return default;
     }
+
+    public static GameObject GetGameObjectOfNameInChildren(GameObject self, string find)
+    {
+        foreach (Transform child in self.transform)
+        {
+            if (child.name == find) return child.gameObject;
+        }
+
+        return default;
+    }
 }

@@ -10,8 +10,9 @@ using UnityEngine.Tilemaps;
  */
 public class ComponentBase
 {
-    public static string Name = "Dev_CompBase";
-    public static Sprite Image;
+    public virtual string Name { get => "COMP_BASE"; }
+    /** The Sprite to use when previewing this Component */
+    public virtual Sprite Image { get => Resources.Load<Sprite>("Components/cube"); }
     
     public virtual bool CanPlace(Vector3Int at)
     {

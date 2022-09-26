@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Wire : ComponentBase
 {
-    
+    public override string Name { get => "Wire"; }
+    public override Sprite Image { get => Resources.Load<Sprite>("Components/wire-image"); }
 }
