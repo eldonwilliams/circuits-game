@@ -21,7 +21,8 @@ public class Global
         foreach (var gameObject in roots)
         {
             var found = gameObject.GetComponent<T>();
-            found ??= gameObject.GetComponentInChildren<T>();
+            if (found == null) continue;
+            found = gameObject.GetComponentInChildren<T>();
             if (found != null) return found;
         }
 
