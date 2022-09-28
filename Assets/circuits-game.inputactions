@@ -67,6 +67,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PlaceStart",
+                    "type": "Button",
+                    "id": "fe907228-9ed6-4c76-bcff-670e96a2614e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlaceMove",
+                    "type": "Value",
+                    "id": "48cbad10-75b7-4436-b186-4f3a0c3ad83d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -331,6 +349,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Poke",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16314e89-5029-474b-aa02-a6d9d026709d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "326634c0-8501-473a-a17f-6cd16945eb3c",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
