@@ -19,16 +19,18 @@ public class CameraMover : MonoBehaviour
     private Camera _camera;
 
     private PlayerInput _playerInput;
+    private PlacementHandler _placementHandler;
 
     public void OnPointerMove(InputAction.CallbackContext context)
     {
         if (!_cameraMoving) return;
+        if (_placementHandler.SelectedComponent?.Name != "Dragger") return;
         
         Vector2 delta = context.ReadValue<Vector2>();
-        delta = delta / new Vector2(Screen.width, Screen.width);
-        delta = delta * new Vector2(10.0f, 10.0f);
-        delta = delta * Mathf.Lerp(0.5f, 1.0f, (goalSize - sizeLimits.min) / (sizeLimits.max - sizeLimits.min));
-        _goalPos = _goalPos + delta;
+        delta /= new Vector2(Screen.width, Screen.width);
+        delta *= new Vector2(10.0f, 10.0f);
+        delta *= Mathf.Lerp(0.5f, 1.0f, (goalSize - sizeLimits.min) / (sizeLimits.max - sizeLimits.min));
+        _goalPos += delta;
     }
 
     public void OnScroll(InputAction.CallbackContext context)
@@ -59,6 +61,7 @@ public class CameraMover : MonoBehaviour
 
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.onActionTriggered += OnEvent;
+        _placementHandler = Global.GetFirstOccurenceOfInRootScene<PlacementHandler>();
     }
 
     public void Update()
