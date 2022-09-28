@@ -69,13 +69,28 @@ public class ComponentSelector : MonoBehaviour
     //     yield return new WaitForSeconds(5.0f);
     //     Show();
     // }
-    
+
     public void OnEnable()
     {
         _backgroundImage = gameObject.GetComponent<Image>();
         _componentImage = Global.GetGameObjectOfNameInChildren(gameObject, "Image").GetComponent<Image>();
         _numberText = gameObject.GetComponentInChildren<TMP_Text>();
         
+        gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            Global.GetFirstOccurenceOfInRootScene<PlacementHandler>().ChangeComponent(_component);
+        });
+
+        Global.GetFirstOccurenceOfInRootScene<PlacementHandler>().OnComponentChange += (ComponentBase newComponent) =>
+        {
+            if (newComponent.Name == _component.Name)
+                gameObject.GetComponent<RectTransform>().LeanScale(new Vector3(1.25f, 1.25f, 1f), 0.2f)
+                    .setEaseOutBack();
+            else
+                gameObject.GetComponent<RectTransform>().LeanScale(new Vector3(1f, 1f, 1f), 0.2f)
+                    .setEaseOutBack();
+        };
+
         // Hide(true);
         // StartCoroutine(IntroCoroutine());
     }
