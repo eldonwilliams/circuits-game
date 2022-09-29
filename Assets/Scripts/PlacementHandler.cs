@@ -48,6 +48,8 @@ public class PlacementHandler : MonoBehaviour
         DisplayComponentSelections();
         ChangeComponent(ScriptableObject.CreateInstance<Dragger>());
 
+        var wireRT = Resources.Load<RuleTile>("WireTile");
+        
         var placementHandler = Global.GetFirstOccurenceOfInRootScene<PlayerInput>();
         var placing = false;
         placementHandler.onActionTriggered += delegate(InputAction.CallbackContext context)
@@ -65,7 +67,10 @@ public class PlacementHandler : MonoBehaviour
                     pos = new Vector3Int(pos.x, pos.y);
                     if (_selectedComponent.CanPlace(pos) && ((ComponentBase)componentTilemap.GetTile(pos))?.Name != _selectedComponent.Name)
                     {
-                        componentTilemap.SetTile(pos, (TileBase) ScriptableObject.CreateInstance(_selectedComponent.GetType()));
+                        if (_selectedComponent.Name == "Wire")
+                            componentTilemap.SetTile(pos, wireRT);
+                        else
+                            componentTilemap.SetTile(pos, (TileBase) ScriptableObject.CreateInstance(_selectedComponent.GetType()));
                     }
                     
                     break;
